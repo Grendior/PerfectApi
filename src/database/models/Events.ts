@@ -6,11 +6,11 @@ import {
   CreatedAt,
   UpdatedAt,
   BeforeCreate,
-  HasMany,
   ForeignKey,
-  BelongsTo,
+  BelongsToMany
 } from "sequelize-typescript";
 import User from "./User";
+import Participants from './Participants';
 
 @Table({
   timestamps: true,
@@ -23,63 +23,60 @@ class Event extends Model<EventAttributes> {
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
   })
-  declare id: string;
+  id!: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  title!: string;
+
+  @Column({
+    type: DataType.TEXT,
+  })
+  description?: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  slug!: string;
+
+  @Column({ type: DataType.BOOLEAN })
+  is_active!: Boolean;
+
+  @Column({
+    type: DataType.DATEONLY,
+  })
+  date!: Date;
+
+  @Column({
+    type: DataType.DATE,
+  })
+  starting_date!: Date;
+
+  @Column({
+    type: DataType.DATE,
+  })
+  ending_date!: Date;
+
+  @Column({
+    type: DataType.SMALLINT,
+  })
+  capacity!: number;
+
+  @CreatedAt
+  created_at!: Date;
+
+  @UpdatedAt
+  updated_at!: Date;
 
   @ForeignKey(() => User)
   @Column({
     type: DataType.UUID,
   })
-  declare creator_id: string;
+  creator_id!: string;
 
-  @Column({
-    type: DataType.STRING,
-  })
-  declare title: string;
-
-  @Column({
-    type: DataType.TEXT,
-  })
-  declare description: string;
-
-  @Column({
-    type: DataType.STRING,
-  })
-  declare slug: string;
-
-  @Column({ type: DataType.BOOLEAN })
-  declare is_active: Boolean;
-
-  @Column({
-    type: DataType.DATEONLY,
-  })
-  declare date: Date;
-
-  @Column({
-    type: DataType.DATE,
-  })
-  declare starting_date: Date;
-
-  @Column({
-    type: DataType.DATE,
-  })
-  declare ending_date: Date;
-
-  @Column({
-    type: DataType.SMALLINT,
-  })
-  declare capacity: number;
-
-  @CreatedAt
-  declare created_at: Date;
-
-  @UpdatedAt
-  declare updated_at: Date;
-
-  // @HasMany(() => User)
-  // declare participants: User[];
-
-  // @HasMany(() => User)
-  // declare reserves: User[];
+  @BelongsToMany(() => User, () => Participants)
+  users?: User[]
 
   @BeforeCreate
   static async generateSlug(instance: Event) {

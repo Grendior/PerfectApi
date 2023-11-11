@@ -20,7 +20,7 @@ class UserRole extends Model<UserRoleAttributes> {
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
   })
-  declare user_id: string;
+  user_id!: string;
 
   @ForeignKey(() => Role)
   @Column({
@@ -28,7 +28,7 @@ class UserRole extends Model<UserRoleAttributes> {
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
   })
-  declare role_id: string;
+  role_id!: string;
 }
 
 export default UserRole;

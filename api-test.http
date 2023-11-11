@@ -3,3 +3,17 @@ GET http://localhost:3000/healthz HTTP/1.1
 
 ### Message endpoint
 GET http://localhost:3000/message/word HTTP/1.1
+
+### Create user
+POST http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "first_name": "Adam",
+    "last_name": "Bendler",
+    "email": "Adam.B@sadfd.com",
+    "password": "test"
+}
+
+### Get user
+GET http://localhost:3000/api/users HTTP/1.1

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -19,12 +20,12 @@ export const createServer = () => {
     return res.json({ ok: true, environment: process.env.NODE_ENV });
   });
 
-  app.post("api/users", async (req, res) => {
+  app.post("/api/users", async (req, res) => {
     const user = await User.create(req.body);
     return res.status(201).json(user);
   });
 
-  app.get("api/users", async (req, res) => {
+  app.get("/api/users", async (req, res) => {
     const users = await User.findAll();
     return res.status(201).json(users);
   });

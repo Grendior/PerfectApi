@@ -5,11 +5,10 @@ import {
   DataType,
   CreatedAt,
   UpdatedAt,
-  BelongsTo,
   BelongsToMany,
-  HasMany,
 } from "sequelize-typescript";
 import UserRole from "./UserRoles";
+import User from './User';
 
 @Table({
   timestamps: true,
@@ -22,21 +21,21 @@ class Role extends Model<RoleAttributes> {
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
   })
-  declare id: string;
+  id!: string;
 
   @Column({
     type: DataType.STRING,
   })
-  declare code: string;
+  code!: string;
 
   @CreatedAt
-  declare created_at: Date;
+  created_at!: Date;
 
   @UpdatedAt
-  declare updated_at: Date;
+  updated_at!: Date;
 
-  @HasMany(() => UserRole)
-  declare roles: UserRole[];
+  @BelongsToMany(() => User, () => UserRole)
+  roles?: User[];
 }
 
 export default Role;

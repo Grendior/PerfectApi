@@ -6,10 +6,12 @@ import {
   CreatedAt,
   UpdatedAt,
   HasMany,
+  BelongsToMany,
 } from "sequelize-typescript";
 import Role from "./Roles";
 import Event from "./Events";
 import UserRole from "./UserRoles";
+import Participants from './Participants';
 
 @Table({
   timestamps: true,
@@ -22,45 +24,49 @@ class User extends Model<UserAttributes> {
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
   })
-  declare id: string;
+  id!: string;
 
   @Column({
     type: DataType.STRING,
   })
-  declare first_name: string;
+  first_name!: string;
 
   @Column({
     type: DataType.STRING,
   })
-  declare last_name: string;
+  last_name!: string;
 
   @Column({
     type: DataType.STRING,
     unique: true,
   })
-  declare email: string;
+  email!: string;
+
+  @Column({
+    type: DataType.STRING,
+    defaultValue: ''
+  })
+  phone_number?: string;
 
   @Column({
     type: DataType.STRING,
   })
-  declare phone_number: string;
-
-  @Column({
-    type: DataType.STRING,
-  })
-  declare password: string;
+  password!: string;
 
   @CreatedAt
-  declare created_at: Date;
+  created_at!: Date;
 
   @UpdatedAt
-  declare updated_at: Date;
+  updated_at!: Date;
 
-  @HasMany(() => Event)
-  declare events: Event[];
+  @HasMany(() => Event, { foreignKey: 'creator_id'})
+  my_events?: Event[];
 
-  @HasMany(() => UserRole)
-  declare roles: UserRole[];
+  @BelongsToMany(() => Role ,() => UserRole)
+  roles?: Role[];
+  
+  @BelongsToMany(() => Event, () => Participants)
+  events?: Event[];
 }
 
 export default User;
