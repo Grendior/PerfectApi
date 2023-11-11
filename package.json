@@ -7,9 +7,10 @@
     "clean": "rm -rf dist",
     "dev": "dotenv -- nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
     "lint": "tsc --noEmit && eslint \"src/**/*.ts*\"",
-    "migration:create": "npx sequelize-cli migration:generate --migrations-path ./src/migrations --config ./src/database/connection.ts",
-    "migrate": "npx sequelize-cli db:migrate --config config/config.js",
-    "migrate:undo": "npx sequelize-cli db:migrate:undo -- config/config.js",
+    "migration:create": "dotenv npx sequelize-cli migration:generate --migrations-path ./src/migrations --config ./src/database/connection.ts",
+    "migrate": "dotenv npx sequelize-cli db:migrate --config config/config.js",
+    "migrate:undo": "dotenv npx sequelize-cli db:migrate:undo --config config/config.js",
+    "migrate:clear": "dotenv npx sequelize-cli db:migrate:undo:all --config config/config.js",
     "test": "jest --detectOpenHandles"
   },
   "jest": {

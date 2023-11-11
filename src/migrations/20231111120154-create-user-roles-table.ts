@@ -1,4 +1,3 @@
-// Example filename: 20220104000000-create-user-roles-table.ts
 'use strict';
 import { QueryInterface, DataTypes } from 'sequelize';
 
@@ -14,6 +13,7 @@ module.exports = {
           model: 'users',
           key: 'id',
         },
+        onUpdate: "CASCADE",
         onDelete: 'CASCADE'
       },
       role_id: {
@@ -25,6 +25,7 @@ module.exports = {
           model: 'roles',
           key: 'id',
         },
+        onUpdate: "CASCADE",
         onDelete: 'CASCADE'
       },
     });

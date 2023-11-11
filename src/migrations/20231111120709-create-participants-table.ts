@@ -14,6 +14,8 @@ module.exports = {
           model: 'users',
           key: 'id',
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       event_id: {
         allowNull: false,
@@ -24,6 +26,8 @@ module.exports = {
           model: 'events',
           key: 'id',
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       status: {
         type: DataTypes.ENUM(...Object.values(ParticipantStatus)),
