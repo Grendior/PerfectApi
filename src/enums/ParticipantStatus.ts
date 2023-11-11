@@ -1,5 +1,5 @@
 export enum ParticipantStatus {
-    RESERVE = 'RESERVE',
-    IN_WAITING = 'IN_WAITING',
-    ACCEPTED = 'ACCEPTED'
+    PENDING = 'PENDING',
+    APPROVED = 'APPROVED',
+    REJECTED = 'REJECTED'
 }

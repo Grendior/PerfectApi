@@ -1,13 +1,11 @@
-'use strict';
 import { QueryInterface, DataTypes } from 'sequelize';
 
 module.exports = {
   up: async (queryInterface: QueryInterface) => {
     await queryInterface.createTable('roles', {
       id: {
-        allowNull: false,
-        primaryKey: true,
         type: DataTypes.UUID,
+        primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
       code: {
@@ -15,17 +13,19 @@ module.exports = {
         allowNull: false,
       },
       created_at: {
-        allowNull: false,
         type: DataTypes.DATE,
+        allowNull: false,
       },
       updated_at: {
-        allowNull: false,
         type: DataTypes.DATE,
       },
     });
+
+    return Promise.resolve();
   },
 
   down: async (queryInterface: QueryInterface) => {
     await queryInterface.dropTable('roles');
+    return Promise.resolve();
   },
 };

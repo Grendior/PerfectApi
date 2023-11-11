@@ -1,30 +1,20 @@
 import {
   Table,
   Column,
-  Model,
   DataType,
-  CreatedAt,
-  UpdatedAt,
   BeforeCreate,
   ForeignKey,
   BelongsToMany
 } from "sequelize-typescript";
 import User from "./User";
 import Participants from './Participants';
+import BaseModel from './BaseModel';
 
 @Table({
-  timestamps: true,
   tableName: "events",
   modelName: "Event",
 })
-class Event extends Model<EventAttributes> {
-  @Column({
-    primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-  })
-  id!: string;
-
+class Event extends BaseModel<EventAttributes> {
   @Column({
     type: DataType.STRING,
   })
@@ -63,12 +53,6 @@ class Event extends Model<EventAttributes> {
   })
   capacity!: number;
 
-  @CreatedAt
-  created_at!: Date;
-
-  @UpdatedAt
-  updated_at!: Date;
-
   @ForeignKey(() => User)
   @Column({
     type: DataType.UUID,
@@ -76,7 +60,7 @@ class Event extends Model<EventAttributes> {
   creator_id!: string;
 
   @BelongsToMany(() => User, () => Participants)
-  users?: User[]
+  participants?: User[]
 
   @BeforeCreate
   static async generateSlug(instance: Event) {
@@ -89,7 +73,7 @@ class Event extends Model<EventAttributes> {
     if (count > 0) {
       suffix = `-${count + 1}`;
     }
-    instance.slug = instance.title.toLowerCase().replace(" ", "-") + suffix;
+    instance.slug = instance.title.toLowerCase().replace(/[^A-Za-z0-9\s]/g, "-") + suffix;
   }
 }
 

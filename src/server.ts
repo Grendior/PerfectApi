@@ -1,10 +1,10 @@
 import 'dotenv/config';
+import "./database/connection";
+
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import "./database/connection";
 import errorHandler from "./middleware/errorHandler";
-import v1 from "./routes/v1";
 import User from "./database/models/User";
 
 export const createServer = () => {
@@ -27,12 +27,10 @@ export const createServer = () => {
 
   app.get("/api/users", async (req, res) => {
     const users = await User.findAll();
-    return res.status(201).json(users);
+    return res.status(200).json(users);
   });
 
-  // app.use("/v1", v1);
-
-  // app.use(errorHandler);
+  app.use(errorHandler);
 
   return app;
 };

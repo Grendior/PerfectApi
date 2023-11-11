@@ -13,19 +13,21 @@ type ValidationError = {
   };
 };
 
+type BaseEntity = {
+  id: string
+  created_at: Date;
+  updated_at: Date;
+}
+
 type UserEntity = {
-  id: string;
   first_name: string;
   last_name: string;
   email: string;
   phone_number: string;
   password: string;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type EventEntity = {
-  id: string;
   creator_id: string;
   title: string;
   description: string;
@@ -34,24 +36,17 @@ type EventEntity = {
   ending_date: Date;
   capacity: number;
   participants: Array<UserAttributes>;
-  reserves: Array<UserAttributes>;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type UserAttributes = {
-  id: string;
   first_name: string;
   last_name: string;
   email: string;
   phone_number: string;
   password: string;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type EventAttributes = {
-  id: string;
   creator_id: string;
   title: string;
   description: string;
@@ -62,24 +57,18 @@ type EventAttributes = {
   ending_date: Date;
   capacity: number;
   participants: Array<UserAttributes>;
-  reserves: Array<UserAttributes>;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type RoleAttributes = {
-  id: string;
   code: string;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type UserRoleAttributes = {
   user_id: string;
   role_id: string;
-};
+} & BaseEntity;
 
-type RegistredForEventAttributes = {
+type ParticipantsAttributes = {
   user_id: string;
   event_id: string;
-};
+} & BaseEntity;

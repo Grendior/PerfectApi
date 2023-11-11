@@ -1,14 +1,12 @@
-'use strict';
 import { QueryInterface, DataTypes } from 'sequelize';
 
 module.exports = {
   up: async (queryInterface: QueryInterface) => {
     await queryInterface.createTable('events', {
       id: {
-        allowNull: false,
-        primaryKey: true,
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
       title: {
         type: DataTypes.STRING,
@@ -48,20 +46,23 @@ module.exports = {
           model: 'users',
           key: 'id',
         },
-        onDelete: 'CASCADE'
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       created_at: {
-        allowNull: false,
         type: DataTypes.DATE,
+        allowNull: false,
       },
       updated_at: {
-        allowNull: false,
         type: DataTypes.DATE,
       },
     });
+
+    return Promise.resolve();
   },
 
   down: async (queryInterface: QueryInterface) => {
     await queryInterface.dropTable('events');
+    return Promise.resolve();
   },
 };

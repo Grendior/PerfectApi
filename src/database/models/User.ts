@@ -12,20 +12,13 @@ import Role from "./Roles";
 import Event from "./Events";
 import UserRole from "./UserRoles";
 import Participants from './Participants';
+import BaseModel from './BaseModel';
 
 @Table({
-  timestamps: true,
   tableName: "users",
   modelName: "User",
 })
-class User extends Model<UserAttributes> {
-  @Column({
-    primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-  })
-  id!: string;
-
+class User extends BaseModel<UserAttributes> {
   @Column({
     type: DataType.STRING,
   })
@@ -44,7 +37,7 @@ class User extends Model<UserAttributes> {
 
   @Column({
     type: DataType.STRING,
-    defaultValue: ''
+    defaultValue: null
   })
   phone_number?: string;
 
@@ -60,7 +53,7 @@ class User extends Model<UserAttributes> {
   updated_at!: Date;
 
   @HasMany(() => Event, { foreignKey: 'creator_id'})
-  my_events?: Event[];
+  created_events?: Event[];
 
   @BelongsToMany(() => Role ,() => UserRole)
   roles?: Role[];

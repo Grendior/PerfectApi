@@ -1,25 +1,23 @@
 import {
   Table,
   Column,
-  Model,
   DataType,
   ForeignKey,
 } from "sequelize-typescript";
 import User from "./User";
 import Event from "./Events";
 import { ParticipantStatus } from '../../enums/ParticipantStatus';
+import BaseModel from './BaseModel';
 
 @Table({
-  timestamps: true,
   tableName: "participants",
   modelName: "Participant",
 })
-class Participants extends Model<RegistredForEventAttributes> {
+class Participants extends BaseModel<ParticipantsAttributes> {
   @ForeignKey(() => User)
   @Column({
     primaryKey: true,
     type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
   })
   user_id!: string;
 
@@ -27,14 +25,13 @@ class Participants extends Model<RegistredForEventAttributes> {
   @Column({
     primaryKey: true,
     type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
   })
   event_id!: string;
 
   @Column({
     type: DataType.ENUM(...Object.values(ParticipantStatus))
   })
-  status?: ParticipantStatus
+  status!: ParticipantStatus
 }
 
 export default Participants;
