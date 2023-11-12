@@ -2,6 +2,7 @@ type ErrorName =
   | "NOT_FOUND_ERROR"
   | "CONNECTION_ERROR"
   | "METHOD_NOT_IMPLEMENTED";
+  
 type ErrorCode = "ERR_NF" | "ERR_REMOTE" | "NOT_IMPL" | "ERR_VALID";
 
 type ValidationError = {
@@ -12,73 +13,62 @@ type ValidationError = {
   };
 };
 
+type BaseEntity = {
+  id: string
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 type UserEntity = {
-  id: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone_number: string;
+  phoneNumber?: string;
   password: string;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type EventEntity = {
-  id: string;
-  creator_id: string;
+  creatorId: string;
   title: string;
   description: string;
   date: Date;
-  starting_date: Date;
-  ending_date: Date;
+  startingDate: Date;
+  endingDate: Date;
   capacity: number;
   participants: Array<UserAttributes>;
-  reserves: Array<UserAttributes>;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type UserAttributes = {
-  id: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone_number: string;
+  phoneNumber?: string;
   password: string;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type EventAttributes = {
-  id: string;
-  creator_id: string;
+  creatorId: string;
   title: string;
   description: string;
   slug: string;
-  is_active: Boolean;
+  isActive: Boolean;
   date: Date;
-  starting_date: Date;
-  ending_date: Date;
+  startingDate: Date;
+  endingDate: Date;
   capacity: number;
   participants: Array<UserAttributes>;
-  reserves: Array<UserAttributes>;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type RoleAttributes = {
-  id: string;
   code: string;
-  created_at: Date;
-  updated_at: Date;
-};
+} & BaseEntity;
 
 type UserRoleAttributes = {
-  user_id: string;
-  role_id: string;
-};
+  userId: string;
+  roleId: string;
+} & BaseEntity;
 
-type RegistredForEventAttributes = {
-  user_id: string;
-  event_id: string;
-};
+type ParticipantsAttributes = {
+  userId: string;
+  eventId: string;
+} & BaseEntity;

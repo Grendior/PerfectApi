@@ -1,42 +1,25 @@
 import {
   Table,
   Column,
-  Model,
   DataType,
-  CreatedAt,
-  UpdatedAt,
-  BelongsTo,
   BelongsToMany,
-  HasMany,
 } from "sequelize-typescript";
 import UserRole from "./UserRoles";
+import User from './User';
+import BaseModel from './BaseModel';
 
 @Table({
-  timestamps: true,
   tableName: "roles",
   modelName: "Role",
 })
-class Role extends Model<RoleAttributes> {
-  @Column({
-    primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-  })
-  declare id: string;
-
+class Role extends BaseModel<RoleAttributes> {
   @Column({
     type: DataType.STRING,
   })
-  declare code: string;
+  code!: string;
 
-  @CreatedAt
-  declare created_at: Date;
-
-  @UpdatedAt
-  declare updated_at: Date;
-
-  @HasMany(() => UserRole)
-  declare roles: UserRole[];
+  @BelongsToMany(() => User, () => UserRole)
+  roles?: User[];
 }
 
 export default Role;

@@ -1,34 +1,37 @@
 import {
   Table,
   Column,
-  Model,
   DataType,
   ForeignKey,
 } from "sequelize-typescript";
 import User from "./User";
 import Event from "./Events";
+import { ParticipantStatus } from '../../enums/ParticipantStatus';
+import BaseModel from './BaseModel';
 
 @Table({
-  timestamps: true,
-  tableName: "roles",
-  modelName: "Role",
+  tableName: "participants",
+  modelName: "Participant",
 })
-class Participants extends Model<RegistredForEventAttributes> {
+class Participants extends BaseModel<ParticipantsAttributes> {
   @ForeignKey(() => User)
   @Column({
     primaryKey: true,
     type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
   })
-  declare user_id: string;
+  userId!: string;
 
   @ForeignKey(() => Event)
   @Column({
     primaryKey: true,
     type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
   })
-  declare event_id: string;
+  eventId!: string;
+
+  @Column({
+    type: DataType.ENUM(...Object.values(ParticipantStatus))
+  })
+  status!: ParticipantStatus
 }
 
 export default Participants;

@@ -8,6 +8,6 @@ export const travel: TravelAttributes = {
   number_of_days: 3,
   tours: [tour],
   is_public: true,
-  created_at: new Date(),
-  updated_at: new Date(),
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };

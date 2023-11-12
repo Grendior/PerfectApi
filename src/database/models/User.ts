@@ -6,61 +6,62 @@ import {
   CreatedAt,
   UpdatedAt,
   HasMany,
+  BelongsToMany,
 } from "sequelize-typescript";
 import Role from "./Roles";
 import Event from "./Events";
 import UserRole from "./UserRoles";
+import Participants from './Participants';
+import BaseModel from './BaseModel';
 
 @Table({
-  timestamps: true,
   tableName: "users",
   modelName: "User",
+  updatedAt: false
 })
-class User extends Model<UserAttributes> {
+class User extends BaseModel<UserAttributes> {
   @Column({
-    primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
+    type: DataType.STRING,
   })
-  declare id: string;
+  firstName!: string;
 
   @Column({
     type: DataType.STRING,
   })
-  declare first_name: string;
-
-  @Column({
-    type: DataType.STRING,
-  })
-  declare last_name: string;
+  lastName!: string;
 
   @Column({
     type: DataType.STRING,
     unique: true,
   })
-  declare email: string;
+  email!: string;
+
+  @Column({
+    type: DataType.STRING,
+    defaultValue: null,
+    allowNull: true
+  })
+  declare phoneNumber?: string;
 
   @Column({
     type: DataType.STRING,
   })
-  declare phone_number: string;
-
-  @Column({
-    type: DataType.STRING,
-  })
-  declare password: string;
+  password!: string;
 
   @CreatedAt
-  declare created_at: Date;
+  createdAt!: Date;
 
   @UpdatedAt
-  declare updated_at: Date;
+  updatedAt!: Date;
 
-  @HasMany(() => Event)
-  declare events: Event[];
+  @HasMany(() => Event, { foreignKey: 'creatorId'})
+  createdEvents?: Event[];
 
-  @HasMany(() => UserRole)
-  declare roles: UserRole[];
+  @BelongsToMany(() => Role ,() => UserRole)
+  roles?: Role[];
+  
+  @BelongsToMany(() => Event, () => Participants)
+  events?: Event[];
 }
 
 export default User;

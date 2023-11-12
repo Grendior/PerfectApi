@@ -1,85 +1,67 @@
 import {
   Table,
   Column,
-  Model,
   DataType,
-  CreatedAt,
-  UpdatedAt,
   BeforeCreate,
-  HasMany,
   ForeignKey,
-  BelongsTo,
+  BelongsToMany
 } from "sequelize-typescript";
 import User from "./User";
+import Participants from './Participants';
+import BaseModel from './BaseModel';
 
 @Table({
-  timestamps: true,
   tableName: "events",
   modelName: "Event",
+  updatedAt: false
 })
-class Event extends Model<EventAttributes> {
+class Event extends BaseModel<EventAttributes> {
   @Column({
-    primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
+    type: DataType.STRING,
   })
-  declare id: string;
+  title!: string;
+
+  @Column({
+    type: DataType.TEXT,
+  })
+  description?: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  slug!: string;
+
+  @Column({ type: DataType.BOOLEAN })
+  isActive!: Boolean;
+
+  @Column({
+    type: DataType.DATEONLY,
+  })
+  date!: Date;
+
+  @Column({
+    type: DataType.DATE,
+  })
+  startingDate!: Date;
+
+  @Column({
+    type: DataType.DATE,
+  })
+  endingDate!: Date;
+
+  @Column({
+    type: DataType.SMALLINT,
+  })
+  capacity!: number;
 
   @ForeignKey(() => User)
   @Column({
     type: DataType.UUID,
   })
-  declare creator_id: string;
+  creatorId!: string;
 
-  @Column({
-    type: DataType.STRING,
-  })
-  declare title: string;
-
-  @Column({
-    type: DataType.TEXT,
-  })
-  declare description: string;
-
-  @Column({
-    type: DataType.STRING,
-  })
-  declare slug: string;
-
-  @Column({ type: DataType.BOOLEAN })
-  declare is_active: Boolean;
-
-  @Column({
-    type: DataType.DATEONLY,
-  })
-  declare date: Date;
-
-  @Column({
-    type: DataType.DATE,
-  })
-  declare starting_date: Date;
-
-  @Column({
-    type: DataType.DATE,
-  })
-  declare ending_date: Date;
-
-  @Column({
-    type: DataType.SMALLINT,
-  })
-  declare capacity: number;
-
-  @CreatedAt
-  declare created_at: Date;
-
-  @UpdatedAt
-  declare updated_at: Date;
-
-  // @HasMany(() => User)
-  // declare participants: User[];
-
-  // @HasMany(() => User)
-  // declare reserves: User[];
+  @BelongsToMany(() => User, () => Participants)
+  participants?: User[]
 
   @BeforeCreate
   static async generateSlug(instance: Event) {
@@ -92,7 +74,7 @@ class Event extends Model<EventAttributes> {
     if (count > 0) {
       suffix = `-${count + 1}`;
     }
-    instance.slug = instance.title.toLowerCase().replace(" ", "-") + suffix;
+    instance.slug = instance.title.toLowerCase().replace(/[^A-Za-z0-9\s]/g, "-") + suffix;
   }
 }
 

@@ -38,7 +38,7 @@ describe("list travels endpoint", () => {
       .expect(200)
       .then((res) => {
         expect(res.body.travels.length).toBe(1);
-        expect(res.body.travels[0]).not.toHaveProperty("created_at");
+        expect(res.body.travels[0]).not.toHaveProperty("createdAt");
         expect(res.body.travels[0].tours.length).toBe(1);
       });
   });
@@ -94,7 +94,7 @@ describe("get travel endpoint", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("travel");
-        expect(res.body.travel).not.toHaveProperty("created_at");
+        expect(res.body.travel).not.toHaveProperty("createdAt");
       });
   });
 

@@ -6,8 +6,8 @@ class TourResource extends BaseResource<TourAttributes, TourEntity>() {
       id: this.instance.id,
       travel_id: this.instance.travel_id,
       name: this.instance.name,
-      starting_date: this.instance.starting_date,
-      ending_date: this.instance.ending_date,
+      startingDate: this.instance.startingDate,
+      endingDate: this.instance.endingDate,
       price: this.instance.price,
     };
 
