@@ -64,11 +64,11 @@ type RoleAttributes = {
 } & BaseEntity;
 
 type UserRoleAttributes = {
-  user_id: string;
-  role_id: string;
+  userId: string;
+  roleId: string;
 } & BaseEntity;
 
 type ParticipantsAttributes = {
-  user_id: string;
-  event_id: string;
+  userId: string;
+  eventId: string;
 } & BaseEntity;

@@ -19,14 +19,14 @@ class Participants extends BaseModel<ParticipantsAttributes> {
     primaryKey: true,
     type: DataType.UUID,
   })
-  user_id!: string;
+  userId!: string;
 
   @ForeignKey(() => Event)
   @Column({
     primaryKey: true,
     type: DataType.UUID,
   })
-  event_id!: string;
+  eventId!: string;
 
   @Column({
     type: DataType.ENUM(...Object.values(ParticipantStatus))

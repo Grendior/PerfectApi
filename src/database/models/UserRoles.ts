@@ -18,14 +18,14 @@ class UserRole extends BaseModel<UserRoleAttributes> {
     primaryKey: true,
     type: DataType.UUID,
   })
-  user_id!: string;
+  userId!: string;
 
   @ForeignKey(() => Role)
   @Column({
     primaryKey: true,
     type: DataType.UUID,
   })
-  role_id!: string;
+  roleId!: string;
 }
 
 export default UserRole;

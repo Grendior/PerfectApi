@@ -8,7 +8,7 @@ module.exports = {
     await queryInterface.createTable(
       'participants',
       {
-        user_id: {
+        userId: {
           type: DataTypes.UUID,
           primaryKey: true,
           allowNull: false,
@@ -19,7 +19,7 @@ module.exports = {
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
         },
-        event_id: {
+        eventId: {
           type: DataTypes.UUID,
           primaryKey: true,
           allowNull: false,

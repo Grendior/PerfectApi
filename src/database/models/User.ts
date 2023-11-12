@@ -55,7 +55,7 @@ class User extends BaseModel<UserAttributes> {
   updatedAt!: Date;
 
   @HasMany(() => Event, { foreignKey: 'creatorId'})
-  created_events?: Event[];
+  createdEvents?: Event[];
 
   @BelongsToMany(() => Role ,() => UserRole)
   roles?: Role[];
