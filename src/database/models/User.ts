@@ -17,17 +17,18 @@ import BaseModel from './BaseModel';
 @Table({
   tableName: "users",
   modelName: "User",
+  updatedAt: false
 })
 class User extends BaseModel<UserAttributes> {
   @Column({
     type: DataType.STRING,
   })
-  first_name!: string;
+  firstName!: string;
 
   @Column({
     type: DataType.STRING,
   })
-  last_name!: string;
+  lastName!: string;
 
   @Column({
     type: DataType.STRING,
@@ -37,9 +38,10 @@ class User extends BaseModel<UserAttributes> {
 
   @Column({
     type: DataType.STRING,
-    defaultValue: null
+    defaultValue: null,
+    allowNull: true
   })
-  phone_number?: string;
+  declare phoneNumber?: string;
 
   @Column({
     type: DataType.STRING,
@@ -47,12 +49,12 @@ class User extends BaseModel<UserAttributes> {
   password!: string;
 
   @CreatedAt
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdatedAt
-  updated_at!: Date;
+  updatedAt!: Date;
 
-  @HasMany(() => Event, { foreignKey: 'creator_id'})
+  @HasMany(() => Event, { foreignKey: 'creatorId'})
   created_events?: Event[];
 
   @BelongsToMany(() => Role ,() => UserRole)

@@ -36,7 +36,7 @@ export default abstract class BaseRepository<A> {
 
   protected getDefaultOrderBy() {
     return {
-      order: [["created_at", "DESC"]],
+      order: [["createdAt", "DESC"]],
     };
   }
 }

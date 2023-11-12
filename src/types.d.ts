@@ -15,46 +15,46 @@ type ValidationError = {
 
 type BaseEntity = {
   id: string
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 type UserEntity = {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone_number: string;
+  phoneNumber?: string;
   password: string;
 } & BaseEntity;
 
 type EventEntity = {
-  creator_id: string;
+  creatorId: string;
   title: string;
   description: string;
   date: Date;
-  starting_date: Date;
-  ending_date: Date;
+  startingDate: Date;
+  endingDate: Date;
   capacity: number;
   participants: Array<UserAttributes>;
 } & BaseEntity;
 
 type UserAttributes = {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone_number: string;
+  phoneNumber?: string;
   password: string;
 } & BaseEntity;
 
 type EventAttributes = {
-  creator_id: string;
+  creatorId: string;
   title: string;
   description: string;
   slug: string;
-  is_active: Boolean;
+  isActive: Boolean;
   date: Date;
-  starting_date: Date;
-  ending_date: Date;
+  startingDate: Date;
+  endingDate: Date;
   capacity: number;
   participants: Array<UserAttributes>;
 } & BaseEntity;

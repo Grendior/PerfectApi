@@ -1,9 +1,9 @@
-import { ParticipantStatus } from 'enums/ParticipantStatus';
-import { QueryInterface, DataTypes } from 'sequelize';
+'use strict';
+const { DataTypes } = require('sequelize');
 
 module.exports = {
-  up: async (queryInterface: QueryInterface) => {
-    await queryInterface.createTable('participants', {
+  up: async (queryInterface) => {
+    await queryInterface.createTable('user_roles', {
       user_id: {
         type: DataTypes.UUID,
         primaryKey: true,
@@ -15,35 +15,32 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      event_id: {
+      role_id: {
         type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false,
         references: {
-          model: 'events',
+          model: 'roles',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      status: {
-        type: DataTypes.ENUM(...Object.keys(ParticipantStatus)),
-        allowNull: false,
-      },
-      created_at: {
+      createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         type: DataTypes.DATE,
+        defaultValue: null,
       },
     });
 
     return Promise.resolve();
   },
 
-  down: async (queryInterface: QueryInterface) => {
-    await queryInterface.dropTable('participants');
+  down: async (queryInterface) => {
+    await queryInterface.dropTable('user_roles');
     return Promise.resolve();
   },
 };

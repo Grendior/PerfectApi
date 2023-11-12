@@ -9,7 +9,6 @@ const sequelize = new Sequelize({
   host: EnvManager.getDbHost(),
   port: EnvManager.getDbPort(),
   models: [__dirname + "/models"],
-  logging: false
 });
 
 export default sequelize;

@@ -5,6 +5,7 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: 'mysql',
+    migrations: [__dirname + '/src/migrations/'],
   },
   test: {
     username: process.env.DB_USERNAME,

@@ -1,7 +1,8 @@
-import { QueryInterface, DataTypes } from 'sequelize';
+'use strict';
+const { DataTypes } = require('sequelize');
 
 module.exports = {
-  up: async (queryInterface: QueryInterface) => {
+  up: async (queryInterface) => {
     await queryInterface.createTable('events', {
       id: {
         type: DataTypes.UUID,
@@ -19,7 +20,7 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      is_active: {
+      isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
@@ -27,11 +28,11 @@ module.exports = {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
-      starting_date: {
+      startingDate: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      ending_date: {
+      endingDate: {
         type: DataTypes.DATE,
         allowNull: false,
       },
@@ -39,7 +40,7 @@ module.exports = {
         type: DataTypes.SMALLINT,
         allowNull: false,
       },
-      creator_id: {
+      creatorId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
@@ -49,19 +50,20 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      created_at: {
+      createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         type: DataTypes.DATE,
+        defaultValue: null,
       },
     });
 
     return Promise.resolve();
   },
 
-  down: async (queryInterface: QueryInterface) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('events');
     return Promise.resolve();
   },

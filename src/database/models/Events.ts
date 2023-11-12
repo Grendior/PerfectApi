@@ -13,6 +13,7 @@ import BaseModel from './BaseModel';
 @Table({
   tableName: "events",
   modelName: "Event",
+  updatedAt: false
 })
 class Event extends BaseModel<EventAttributes> {
   @Column({
@@ -31,7 +32,7 @@ class Event extends BaseModel<EventAttributes> {
   slug!: string;
 
   @Column({ type: DataType.BOOLEAN })
-  is_active!: Boolean;
+  isActive!: Boolean;
 
   @Column({
     type: DataType.DATEONLY,
@@ -41,12 +42,12 @@ class Event extends BaseModel<EventAttributes> {
   @Column({
     type: DataType.DATE,
   })
-  starting_date!: Date;
+  startingDate!: Date;
 
   @Column({
     type: DataType.DATE,
   })
-  ending_date!: Date;
+  endingDate!: Date;
 
   @Column({
     type: DataType.SMALLINT,
@@ -57,7 +58,7 @@ class Event extends BaseModel<EventAttributes> {
   @Column({
     type: DataType.UUID,
   })
-  creator_id!: string;
+  creatorId!: string;
 
   @BelongsToMany(() => User, () => Participants)
   participants?: User[]
