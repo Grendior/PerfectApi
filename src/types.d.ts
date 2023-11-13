@@ -1,9 +1,9 @@
 type ErrorName =
-  | "NOT_FOUND_ERROR"
-  | "CONNECTION_ERROR"
-  | "METHOD_NOT_IMPLEMENTED";
-  
-type ErrorCode = "ERR_NF" | "ERR_REMOTE" | "NOT_IMPL" | "ERR_VALID";
+  | 'NOT_FOUND_ERROR'
+  | 'CONNECTION_ERROR'
+  | 'METHOD_NOT_IMPLEMENTED';
+
+type ErrorCode = 'ERR_NF' | 'ERR_REMOTE' | 'NOT_IMPL' | 'ERR_VALID';
 
 type ValidationError = {
   error: {
@@ -14,17 +14,16 @@ type ValidationError = {
 };
 
 type BaseEntity = {
-  id: string
+  id: string;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
 type UserEntity = {
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber?: string;
-  password: string;
 } & BaseEntity;
 
 type EventEntity = {
@@ -44,7 +43,7 @@ type UserAttributes = {
   email: string;
   phoneNumber?: string;
   password: string;
-} & BaseEntity;
+};
 
 type EventAttributes = {
   creatorId: string;
