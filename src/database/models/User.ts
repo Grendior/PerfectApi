@@ -7,17 +7,17 @@ import {
   UpdatedAt,
   HasMany,
   BelongsToMany,
-} from "sequelize-typescript";
-import Role from "./Roles";
-import Event from "./Events";
-import UserRole from "./UserRoles";
+} from 'sequelize-typescript';
+import Role from './Roles';
+import Event from './Events';
+import UserRole from './UserRoles';
 import Participants from './Participants';
 import BaseModel from './BaseModel';
 
 @Table({
-  tableName: "users",
-  modelName: "User",
-  updatedAt: false
+  tableName: 'users',
+  modelName: 'User',
+  updatedAt: false,
 })
 class User extends BaseModel<UserAttributes> {
   @Column({
@@ -39,7 +39,7 @@ class User extends BaseModel<UserAttributes> {
   @Column({
     type: DataType.STRING,
     defaultValue: null,
-    allowNull: true
+    allowNull: true,
   })
   declare phoneNumber?: string;
 
@@ -54,12 +54,12 @@ class User extends BaseModel<UserAttributes> {
   @UpdatedAt
   updatedAt!: Date;
 
-  @HasMany(() => Event, { foreignKey: 'creatorId'})
+  @HasMany(() => Event, { foreignKey: 'creatorId' })
   createdEvents?: Event[];
 
-  @BelongsToMany(() => Role ,() => UserRole)
+  @BelongsToMany(() => Role, () => UserRole)
   roles?: Role[];
-  
+
   @BelongsToMany(() => Event, () => Participants)
   events?: Event[];
 }
