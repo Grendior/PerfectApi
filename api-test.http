@@ -2,15 +2,25 @@
 GET http://localhost:3000/healthz HTTP/1.1
 
 ### Create user
-POST http://localhost:3000/api/users HTTP/1.1
+POST http://localhost:3000/api/user/registration HTTP/1.1
 content-type: application/json
 
 {
     "firstName": "Adam",
     "lastName": "Bendler",
-    "email": "Adam.B@sadfd.com",
+    "email": "Adamas.B@sadfd.com",
     "password": "test"
 }
+
+### Login user
+POST http://localhost:3000/api/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "Adamas.B@sadfd.com",
+    "password": "test"
+}
+
 
 ### Get all users
 GET http://localhost:3000/api/user/list HTTP/1.1
